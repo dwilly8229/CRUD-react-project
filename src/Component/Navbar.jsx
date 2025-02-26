@@ -1,43 +1,32 @@
 import React from "react";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">
+const NavigationBar = () => (
+  <Navbar bg="dark" variant="dark" expand="lg">
+    <Container>
+      <Navbar.Brand as={Link} to="/">
         <img
           src="https://cdn1.iconfinder.com/data/icons/line-design-business-set-5/21/table-employee-512.png"
-          alt="employee"
-          width={70}
-          height={70}
+          alt="logo"
+          width="40"
+          height="40"
+          className="d-inline-block align-top me-2"
         />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              Home <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Add
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
-};
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="ms-auto">
+          <Nav.Link as={Link} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={Link} to="/add">
+            Add User
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
+  </Navbar>
+);
 
-export default Navbar;
+export default NavigationBar;
