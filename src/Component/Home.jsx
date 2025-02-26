@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 const Home = ({ employees, deleteEmployee }) => (
   <div className="contianer mt-4">
     <h2 className="mb-4">Employee List</h2>
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive className="mt-3">
       <thead>
         <tr>
           <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
-          <th>Phones</th>
+          <th>Phone</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@ const Home = ({ employees, deleteEmployee }) => (
                 variant="warning"
                 size="sm"
                 as={Link}
-                to={"/edit/${id}"}
+                to={"/update/${id}"}
                 className="me-2"
               >
                 Edit
