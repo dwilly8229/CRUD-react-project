@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Component/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Component/Home";
@@ -6,21 +6,39 @@ import employeesData from "./Data/employees.json";
 import AddUser from "./Component/AddUser";
 import UpdateUser from "./Component/UpdateUser";
 const App = () => {
-  const [employees, setEmployees] = useState(employeesData);
+  const [employees, setEmployees] = useState(() => {
+    const saved = localStorage.getItem("employees");
+    return saved
+      ? JSON.parse(saved)
+      : employeesData.map((emp, index) => ({ ...emp, id: index + 1 }));
+  });
 
-  const addEmployee = (newEmployee) => {
-    setEmployees([...employees, { ...newEmployee, id: employees.length + 1 }]);
+  useEffect(() => {
+    localStorage.setItem("employees", JSON.stringify(employees));
+  }, [employees]);
+
+  const getNextId = () => employees.length + 1;
+
+  const addEmployee = (employee) => {
+    setEmployees([...employees, { id: getNextId(), ...employee }]);
   };
-  const deleteEmployee = (id) => {
-    setEmployees(employees.filter((employee) => employee.id !== id));
-  };
-  const updateEmployee = (id, updatedData) => {
+
+  const updateEmployee = (updatedEmployee) => {
     setEmployees(
-      employees.map((employee) =>
-        employee.id === id ? { ...updatedData, id } : employee
+      employees.map((emp) =>
+        emp.id === updatedEmployee.id ? updatedEmployee : emp
       )
     );
   };
+
+  const deleteEmployee = (id) => {
+    const updatedEmployees = employees
+      .filter((emp) => emp.id !== id)
+      .map((emp, index) => ({ ...emp, id: index + 1 }));
+
+    setEmployees(updatedEmployees);
+  };
+
   return (
     <>
       <Router>

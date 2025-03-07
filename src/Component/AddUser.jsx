@@ -21,8 +21,8 @@ const AddUser = ({ onAdd }) => {
   };
   return (
     <Container className="mt-4">
-      <h2>Add New Employee</h2>
-      <Form onSubmit={handleSubmit} className="mt-3">
+      <h2 className="mb-4">Add New Employee</h2>
+      <Form onSubmit={handleSubmit} className="w-50 mx-auto">
         <Form.Group className="mb-3">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -54,13 +54,20 @@ const AddUser = ({ onAdd }) => {
         <Form.Group className="mb-3">
           <Form.Label>Phone</Form.Label>
           <Form.Control
+            type="tel"
+            id="phone"
+            pattern="[0-9]{10}"
             name="phone"
             value={form.phone}
             onChange={handleChange}
             required
           />
         </Form.Group>
-        <Button type="submit" variant="primaary">
+        <Button
+          type="submit"
+          variant="primaary"
+          className="btn btn-primary btn-sm me-2"
+        >
           Add Employee
         </Button>
       </Form>

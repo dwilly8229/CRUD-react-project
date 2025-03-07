@@ -2,8 +2,8 @@ import React from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Home = ({ employees, deleteEmployee }) => (
-  <div className="contianer mt-4">
+const Home = ({ employees, onDelete }) => (
+  <div className="contianer px-4">
     <h2 className="mb-4">Employee List</h2>
     <Table striped bordered hover responsive className="mt-3">
       <thead>
@@ -17,30 +17,26 @@ const Home = ({ employees, deleteEmployee }) => (
         </tr>
       </thead>
       <tbody>
-        {employees.map(({ id, firstName, lastName, email, phone }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
-            <td>{email}</td>
-            <td>{phone}</td>
+        {employees.map((employee) => (
+          <tr key={employee.id}>
+            <td>{employee.id}</td>
+            <td>{employee.firstName}</td>
+            <td>{employee.lastName}</td>
+            <td>{employee.email}</td>
+            <td>{employee.phone}</td>
             <td>
-              <Button
-                variant="warning"
-                size="sm"
-                as={Link}
-                to={"/update/${id}"}
-                className="me-2"
+              <Link
+                to={"/update/${employee.id}"}
+                className="btn btn-primary btn-sm me-2"
               >
                 Edit
-              </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => deleteEmployee(id)}
+              </Link>
+              <button
+                onClick={() => onDelete(employee.id)}
+                className="btn btn-danger btn-sm"
               >
                 Delete
-              </Button>
+              </button>
             </td>
           </tr>
         ))}

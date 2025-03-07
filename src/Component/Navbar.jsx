@@ -7,15 +7,16 @@ const NavigationBar = () => (
     <Container>
       <Navbar.Brand as={Link} to="/">
         <img
-          src="https://cdn1.iconfinder.com/data/icons/line-design-business-set-5/21/table-employee-512.png"
-          alt="logo"
+          src="https://cdn4.iconfinder.com/data/icons/flat-pro-business-set-4/32/table-employee-512.png"
+          alt="Logo"
           width="40"
           height="40"
           className="d-inline-block align-top me-2"
         />
+        Employee Management
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar.Toggle aria-controls="navbar-nav" />
+      <Navbar.Collapse id="navbar-nav">
         <Nav className="ms-auto">
           <Nav.Link as={Link} to="/">
             Home
