@@ -26,7 +26,7 @@ const Home = ({ employees, onDelete }) => (
             <td>{employee.phone}</td>
             <td>
               <Link
-                to={"/update/${employee.id}"}
+                to={`/update/${employee.id}`}
                 className="btn btn-primary btn-sm me-2"
               >
                 Edit

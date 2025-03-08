@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateUser = ({ employees, onUpdate }) => {
   const { id } = useParams();
+  console.log("----", id);
   const navigate = useNavigate();
   const employee = employees.find((emp) => emp.id === Number(id));
   const [form, setForm] = useState({
@@ -14,10 +15,15 @@ const UpdateUser = ({ employees, onUpdate }) => {
   });
 
   useEffect(() => {
-    if (employee) {
-      setForm(employee);
+    const foundEmployee = employees.find((emp) => emp.id === Number(id));
+    if (foundEmployee) {
+      setForm({ ...foundEmployee });
     }
-  }, [id, employees]);
+  }, [employees, id]);
+
+  if (!employee) {
+    return <h2 className="text-center mt-5">Employee not found</h2>;
+  }
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,11 +31,11 @@ const UpdateUser = ({ employees, onUpdate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate({ ...form, id: Number(id) });
-    navigate("/");
+
+    setTimeout(() => {
+      navigate("/");
+    }, 100);
   };
-  if (!employee) {
-    return <h2 className="text-center mt-5">Employee not found</h2>;
-  }
 
   return (
     <Container className="mt-4">
@@ -69,13 +75,14 @@ const UpdateUser = ({ employees, onUpdate }) => {
             type="tel"
             id="phone"
             pattern="[0-9]{10}"
+            title="Phone no. must be 10 digits"
             name="phone"
             value={form.phone}
             onChange={handleChange}
             required
           />
         </Form.Group>
-        <Button type="submit" variant="success" className="btn btn-primary">
+        <Button type="submit" variant="primary">
           Update Employee
         </Button>
       </Form>
