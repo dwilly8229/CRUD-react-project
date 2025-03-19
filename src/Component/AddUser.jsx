@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { EmployeeContext } from "../context/EmployeeContext";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const AddUser = ({ onAdd }) => {
+const AddUser = () => {
+  const { addEmployee } = useContext(EmployeeContext);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +18,7 @@ const AddUser = ({ onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd(form);
+    addEmployee(form);
     navigate("/");
   };
   return (
@@ -63,11 +65,7 @@ const AddUser = ({ onAdd }) => {
             required
           />
         </Form.Group>
-        <Button
-          type="submit"
-          variant="primaary"
-          className="btn btn-primary btn-sm me-2"
-        >
+        <Button type="submit" variant="primary">
           Add Employee
         </Button>
       </Form>

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { EmployeeContext } from "../context/EmployeeContext";
 import { Form, Button, Container } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 
-const UpdateUser = ({ employees, onUpdate }) => {
+const UpdateUser = () => {
+  const { employees, updateEmployee } = useContext(EmployeeContext);
   const { id } = useParams();
   console.log("----", id);
   const navigate = useNavigate();
+
   const employee = employees.find((emp) => emp.id === Number(id));
   const [form, setForm] = useState({
     firstName: "",
@@ -30,11 +33,8 @@ const UpdateUser = ({ employees, onUpdate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate({ ...form, id: Number(id) });
-
-    setTimeout(() => {
-      navigate("/");
-    }, 100);
+    updateEmployee({ ...form });
+    navigate("/");
   };
 
   return (
