@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
-import { EmployeeContext } from "../context/EmployeeContext";
+import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { addEmployee } from "../redux/employeeSlice";
+import { useDispatch } from "react-redux";
 
 const AddUser = () => {
-  const { addEmployee } = useContext(EmployeeContext);
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -18,7 +19,7 @@ const AddUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addEmployee(form);
+    dispatch(addEmployee(form));
     navigate("/");
   };
   return (

@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
-import { EmployeeContext } from "../context/EmployeeContext";
+import React from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteEmployee } from "../redux/employeeSlice";
 
 const Home = () => {
-  const { employees, deleteEmployee } = useContext(EmployeeContext);
+  const employees = useSelector((state) => state.employees);
+  const dispatch = useDispatch();
 
   return (
     <div className="container px-4">
@@ -36,8 +38,9 @@ const Home = () => {
                   Edit
                 </Link>
                 <Button
-                  onClick={() => deleteEmployee(employee.id)}
-                  className="btn btn-danger btn-sm"
+                  variant="danger"
+                  size="sm"
+                  onClick={() => dispatch(deleteEmployee(employee.id))}
                 >
                   Delete
                 </Button>

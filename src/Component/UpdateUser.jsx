@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
-import { EmployeeContext } from "../context/EmployeeContext";
 import { Form, Button, Container } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { updateEmployee } from "../redux/employeeSlice";
 
 const UpdateUser = () => {
-  const { employees, updateEmployee } = useContext(EmployeeContext);
+  const dispatch = useDispatch();
+  const employees = useSelector((state) => state.employees);
   const { id } = useParams();
   console.log("----", id);
   const navigate = useNavigate();
-
   const employee = employees.find((emp) => emp.id === Number(id));
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -18,11 +20,10 @@ const UpdateUser = () => {
   });
 
   useEffect(() => {
-    const foundEmployee = employees.find((emp) => emp.id === Number(id));
-    if (foundEmployee) {
-      setForm({ ...foundEmployee });
+    if (employee) {
+      setForm(employee);
     }
-  }, [employees, id]);
+  }, [employees]);
 
   if (!employee) {
     return <h2 className="text-center mt-5">Employee not found</h2>;
@@ -33,7 +34,7 @@ const UpdateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateEmployee({ ...form });
+    dispatch(updateEmployee({ ...form }));
     navigate("/");
   };
 
